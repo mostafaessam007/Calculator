@@ -45,18 +45,18 @@ remove.addEventListener('click', ()=> {
 
 numButtons.forEach(btn => {
     btn.addEventListener('click',(e)=>{
-        numbers +=  e.target.textContent
-        if (numbers.length <=9) {
-                    screen.textContent=numbers;
-
-        }
+        let input =  e.target.textContent
+        if (numbers.length <9){
+            numbers +=  input
+             screen.textContent=numbers;}
+   
     })
     
 });
 operators.forEach(btn => {
     btn.addEventListener('click', (e) => {
         if (numbers === "") return;
-
+        if (numbers.length >=9)return ;
         const lastChar = numbers[numbers.length - 1];
         if ("+-*/".includes(lastChar)) return;
 
@@ -73,6 +73,8 @@ operators.forEach(btn => {
             else if (op === "-") result = subtract(num1, num2);
             else if (op === "*") result = multiply(num1, num2);
             else if (op === "/") result = divide(num1, num2);
+
+            
 
             if (typeof result ==='number') {
                 result = parseFloat(result.toFixed(3))
@@ -117,13 +119,16 @@ function calculate(){
           result = divide (num1,num2);  
         } 
     }
-
+    
     if (typeof result ==='number') {
         result = parseFloat(result.toFixed(3))
     }
 
 
     numbers = result.toString();
+    if (numbers.length >=9) {
+        numbers = numbers.slice(0, 9);
+    };
     screen.textContent = numbers;
 
 }
