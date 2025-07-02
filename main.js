@@ -32,10 +32,7 @@ let num1 = "";
 let num2 = "";
 let operator="";
 let numbers = "";
-
-// function operate(num1,operator, num2) {
-// add(a,b)
-// }
+let result;
 
 clear.addEventListener('click', ()=> {
     screen.textContent= numbers = "";
@@ -56,16 +53,33 @@ numButtons.forEach(btn => {
     
 });
 operators.forEach(btn => {
-    btn.addEventListener('click',(e)=>{
+    btn.addEventListener('click', (e) => {
         if (numbers === "") return;
-        if (numbers.length <=9) {
-        num1=numbers;
-        operator =  e.target.textContent;
-        numbers+= operator;
-        screen.textContent=numbers;
+
+        const lastChar = numbers[numbers.length - 1];
+        if ("+-*/".includes(lastChar)) return;
+
+        const parts = numbers.split(/(\+|\-|\*|\/)/);
+
+        if (parts.length >= 3) {
+            const num1 = Number(parts[0]);
+            const op = parts[1];
+            const num2 = Number(parts[2]);
+
+            let result;
+
+            if (op === "+") result = add(num1, num2);
+            else if (op === "-") result = subtract(num1, num2);
+            else if (op === "*") result = multiply(num1, num2);
+            else if (op === "/") result = divide(num1, num2);
+
+            numbers = result.toString() + e.target.textContent;
+        } else {
+            numbers += e.target.textContent;
         }
-    })
-    
+
+        screen.textContent = numbers;
+    });
 });
 
 equal.addEventListener("click",()=>{
@@ -78,8 +92,9 @@ function calculate(){
     num1=Number(parts[0]);
     operator = parts[1]
     num2=Number(parts[2]);
+    
 
-    let result;
+ 
 
     if (operator === "+") {
         result = add (num1,num2);
