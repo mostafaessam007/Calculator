@@ -35,7 +35,8 @@ let numbers = "";
 let result;
 
 clear.addEventListener('click', ()=> {
-    screen.textContent= numbers = "";
+    numbers = "";
+    screen.textContent= numbers;
 });
 
 remove.addEventListener('click', ()=> {
@@ -73,11 +74,17 @@ operators.forEach(btn => {
             else if (op === "*") result = multiply(num1, num2);
             else if (op === "/") result = divide(num1, num2);
 
+            if (typeof result ==='number') {
+                result = parseFloat(result.toFixed(3))
+            }
+
             numbers = result.toString() + e.target.textContent;
+            
         } else {
+            
             numbers += e.target.textContent;
         }
-
+        
         screen.textContent = numbers;
     });
 });
@@ -110,6 +117,12 @@ function calculate(){
           result = divide (num1,num2);  
         } 
     }
+
+    if (typeof result ==='number') {
+        result = parseFloat(result.toFixed(3))
+    }
+
+
     numbers = result.toString();
     screen.textContent = numbers;
 
