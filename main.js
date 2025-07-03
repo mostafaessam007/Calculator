@@ -91,6 +91,25 @@ operators.forEach(btn => {
     });
 });
 
+dot.addEventListener("click", (e)=> {
+    if (numbers === "") return;
+        if (numbers.length >=9)return ;
+        const lastChar = numbers[numbers.length - 1];
+        if (".".includes(lastChar)) return;
+
+        const parts = numbers.split(/(\+|\-|\*|\/)/);
+        const currentNumber =parts[parts.length-1];
+        if (currentNumber.includes("."))return;
+
+
+    let deci = e.target.textContent;
+    numbers = numbers + deci
+
+
+            screen.textContent = numbers;
+        
+})
+
 equal.addEventListener("click",()=>{
     const parts = numbers.split(/(\+|\-|\*|\/)/);
 
