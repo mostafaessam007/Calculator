@@ -92,7 +92,20 @@ operators.forEach(btn => {
 });
 
 equal.addEventListener("click",()=>{
-     calculate()
+    const parts = numbers.split(/(\+|\-|\*|\/)/);
+
+
+    if (parts.length >= 3) {
+        const num1 = Number(parts[0]);
+        const op = parts[1];
+        const num2 = Number(parts[2]);
+
+        if (!isNaN(num1)&&!isNaN(num2)){
+            calculate()
+        }
+    }
+  
+     
 } );
 
 function calculate(){
