@@ -133,12 +133,24 @@ equal.addEventListener("click",()=>{
 
 function calculate(){
 
-    const parts = numbers.split(/(\+|\-|\*|\/)/);
-    num1=Number(parts[0]);
-    operator = parts[1]
-    num2=Number(parts[2]);
-    
+    const parts = numbers.split(/((?:\+|-|\*|\/))/);
+    const validParts = parts.filter(part => part !== "");
 
+    
+    if (validParts.length < 3) return;
+
+    let num1, op, num2;
+
+    if (validParts[0] === "-") {
+        num1 = -Number(validParts[1]);
+        operator = validParts[2];
+        num2 = Number(validParts[3]);
+
+    } else {
+        num1 = Number(validParts[0]);
+        operator = validParts[1];
+        num2 = Number(validParts[2]);
+    }
  
 
     if (operator === "+") {
