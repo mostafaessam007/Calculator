@@ -34,9 +34,13 @@ let operator="";
 let numbers = "";
 let result;
 
-clear.addEventListener('click', ()=> {
+function clearr () {
     numbers = "";
     screen.textContent= numbers;
+}
+
+clear.addEventListener('click', ()=> {
+    clearr();
 });
 
 remove.addEventListener('click', ()=> {
@@ -146,7 +150,8 @@ function calculate(){
         result = multiply (num1,num2);
     }else if (operator === "/"){
         if (num2 === 0) {
-            result = "ERROR!"
+            result = "ERROR!";
+            setTimeout(clearr, 2500);
         }else {
           result = divide (num1,num2);  
         } 
