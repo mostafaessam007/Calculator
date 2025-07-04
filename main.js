@@ -139,8 +139,6 @@ function calculate(){
     
     if (validParts.length < 3) return;
 
-    let num1, op, num2;
-
     if (validParts[0] === "-") {
         num1 = -Number(validParts[1]);
         operator = validParts[2];
