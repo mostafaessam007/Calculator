@@ -60,16 +60,27 @@ numButtons.forEach(btn => {
 operators.forEach(btn => {
     btn.addEventListener('click', (e) => {
         if (numbers === "") return;
-        if (numbers.length >=9)return ;
+        if (numbers.length >= 9) return;
+
         const lastChar = numbers[numbers.length - 1];
         if ("+-*/".includes(lastChar)) return;
 
-        const parts = numbers.split(/(\+|\-|\*|\/)/);
+        const parts = numbers.split(/((?:\+|-|\*|\/))/);
+        const validParts = parts.filter(part => part !== "");
 
-        if (parts.length >= 3) {
-            const num1 = Number(parts[0]);
-            const op = parts[1];
-            const num2 = Number(parts[2]);
+        if (validParts.length >= 3) {
+            let num1, op, num2;
+
+            if (validParts[0] === "-") {
+                num1 = -Number(validParts[1]);
+                op = validParts[2];
+                num2 = Number(validParts[3]);
+
+            } else {
+                num1 = Number(validParts[0]);
+                op = validParts[1];
+                num2 = Number(validParts[2]);
+            }
 
             let result;
 
@@ -78,19 +89,16 @@ operators.forEach(btn => {
             else if (op === "*") result = multiply(num1, num2);
             else if (op === "/") result = divide(num1, num2);
 
-            
-
-            if (typeof result ==='number') {
-                result = parseFloat(result.toFixed(3))
+            if (typeof result === 'number') {
+                result = parseFloat(result.toFixed(3));
             }
 
             numbers = result.toString() + e.target.textContent;
-            
+
         } else {
-            
             numbers += e.target.textContent;
         }
-        
+
         screen.textContent = numbers;
     });
 });
